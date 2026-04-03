@@ -62,7 +62,7 @@ export async function getSession(): Promise<AdminSession | null> {
 
   try {
     const verified = await jwtVerify(token, jwt)
-    return verified.payload as unknown as AdminSession
+    return verified.payload as AdminSession
   } catch {
     return null
   }
@@ -72,3 +72,4 @@ export async function destroySession() {
   const cookieStore = await cookies()
   cookieStore.delete('admin-session')
 }
+

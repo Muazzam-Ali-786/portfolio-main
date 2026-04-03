@@ -4,18 +4,19 @@ import { cookies } from 'next/headers'
 
 export async function POST(request: Request) {
   try {
-    const { email, password } = await request.json()
+    // Early env check
+    const email = process.env.ADMIN_EMAIL
+    const hashB64 = process.env.ADMIN_PASSWORD_HASH
+    if (!email || !hashB64) {
+      return NextResponse.json(
+        { error: 'Server configuration incomplete' },
+        { status: 500 }
+      )
+    }
 
-    // DEBUG LOGS
-    console.log('Login attempt:')
-    console.log('- Email from form:', email)
-    console.log('- Email from env:', process.env.ADMIN_EMAIL)
-    console.log('- Emails match:', email === process.env.ADMIN_EMAIL)
-    console.log('- Password length:', password?.length)
-    console.log('- Hash exists:', !!process.env.ADMIN_PASSWORD_HASH)
+    const { email: formEmail, password } = await request.json()
 
-    const isValid = await verifyCredentials(email, password)
-    console.log('- Verification result:', isValid)
+    const isValid = await verifyCredentials(formEmail, password)
 
     if (!isValid) {
       return NextResponse.json(
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const token = await createSession(email)
+    const token = await createSession(formEmail)
     const cookieStore = await cookies()
     
     cookieStore.set('admin-session', token, {
