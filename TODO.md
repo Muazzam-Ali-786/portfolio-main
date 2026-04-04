@@ -6,7 +6,7 @@
    - Deleted lib/admin-auth-fixed.ts (duplicate of admin-auth.ts)
 
 ### 2. [x] Create Vercel config
-   - Created vercel.json with functions/headers/env for optimal deployment
+   - Fixed vercel.json - removed invalid runtime (Vercel error fix), kept maxDuration/headers
 
 ### 3. [x] Update README.md
    - Added detailed Vercel deployment guide with env var instructions
