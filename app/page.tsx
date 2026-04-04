@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
+import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { ProjectCard } from "@/components/project-card"
@@ -67,11 +67,19 @@ export default function Portfolio() {
             </p>
             
             {/* 5. Buttons */}
-            <div className="flex flex-wrap gap-4 pt-4 justify-center">
+<div className="flex flex-wrap gap-4 pt-4 justify-center">
               <Link href="#projects">
                 <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
                   <span className="relative z-10 flex items-center">
                     View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                </Button>
+              </Link>
+              <Link href="/resume">
+                <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
+                  <span className="relative z-10 flex items-center">
+                    View Resume <Download className="ml-2 h-4 w-4" />
                   </span>
                   <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 </Button>
@@ -145,6 +153,14 @@ export default function Portfolio() {
                   <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
                     <span className="relative z-10 flex items-center">
                       View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  </Button>
+                </Link>
+                <Link href="/resume">
+                  <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
+                    <span className="relative z-10 flex items-center">
+                      View Resume <Download className="ml-2 h-4 w-4" />
                     </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   </Button>
@@ -241,7 +257,7 @@ export default function Portfolio() {
                 <p className="text-lg text-zinc-300 mt-4">
                   I work with HTML, CSS, JavaScript, and frameworks like React and Next.js, and I use Git/GitHub to ship and iterate. My aim is straightforward: write maintainable code, keep the UX polished, and grow through hands-on projects.
                 </p>
-                <p className="text-lg text-zinc-300 mt-4">
+<p className="text-lg text-zinc-300 mt-4">
                   I am open to internships, junior roles, and collaboration opportunities where I can contribute, learn from a team, and keep building real products.
                 </p>
 
@@ -249,7 +265,7 @@ export default function Portfolio() {
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Name</div>
                     <div className="font-medium">Malik Muazzam Ali</div>
-                  </div>
+                  </div> 
 
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
@@ -266,15 +282,11 @@ export default function Portfolio() {
                 </div>
 
                 <div className="mt-8">
-                  <a
-                    href="/Muazzam-CV.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-md"
-                  >
-                    View Resume
-                  </a>
-
+                  <Link href="/resume">
+                    <Button className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-md border-0">
+                      View Resume
+                    </Button>
+                  </Link>
                 </div>
               </GlassmorphicCard>
             </div>
