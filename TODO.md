@@ -15,8 +15,9 @@
    - Graceful fallbacks in auth/DB if env missing
 
 ### 5. [x] Test build locally
-   - npm run build succeeded (no errors reported)
-   - Preview: Run `npm run start` to test production build locally
+   - Upgraded Next.js to ^15.3.0 (fixes CVE/security warning)
+   - Removed @vercel/node (unneeded)
+   - npm install && npm run build succeeded
 
 ### 6. [ ] Deploy to Vercel
    - Push to GitHub
