@@ -1,22 +1,29 @@
-# Build Fix TODO - API /admin/login Build Error
+# Vercel Deployment Repair - TODO Steps
 
-## Status: ✅ Code Updates Complete
+## Approved Plan Steps (progress tracked here)
 
-### Plan Breakdown & Steps:
-1. ✅ Analyzed files & created plan
-2. ✅ Updated lib/admin-auth.ts (lazy env loading, validation, fixed TS error)
-3. ✅ Updated app/api/admin/login/route.ts (removed debug logs, added early env check)
-4. 🔄 Test locally: Run `npm run build` now
-5. ⏳ Set Vercel env vars (ADMIN_EMAIL, ADMIN_PASSWORD_HASH, NEXTAUTH_SECRET)
-6. ⏳ Redeploy & test /admin/login
-7. ✅ Remove TODO.md
+### 1. [x] Cleanup redundant files
+   - Deleted lib/admin-auth-fixed.ts (duplicate of admin-auth.ts)
 
-**Next Step**: Execute `npm run build` to verify fix.
+### 2. [x] Create Vercel config
+   - Created vercel.json with functions/headers/env for optimal deployment
 
-**Generate hash** (if needed):
-```bash
-node portfolio-main/generate-hash.js
-```
-Copy base64 output to ADMIN_PASSWORD_HASH.
+### 3. [x] Update README.md
+   - Added detailed Vercel deployment guide with env var instructions
 
+### 4. [ ] Improve error handling (optional) - SKIPPED
+   - Graceful fallbacks in auth/DB if env missing
 
+### 5. [x] Test build locally
+   - npm run build succeeded (no errors reported)
+   - Preview: Run `npm run start` to test production build locally
+
+### 6. [ ] Deploy to Vercel
+   - Push to GitHub
+   - Import to Vercel dashboard
+   - Set ALL env vars from env.local.example
+   - Deploy and test site/admin/contact
+
+**Next: User approve each step or proceed sequentially.**
+
+Updated on: First step ready
