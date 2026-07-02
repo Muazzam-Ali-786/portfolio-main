@@ -16,7 +16,7 @@ export function CreativeHero() {
       const timer = setTimeout(() => {
         setGlowIntensity(prev => Math.max(prev - 1, 0))
       }, 500) // Reduce every 500ms
-      
+
       return () => clearTimeout(timer)
     }
   }, [glowIntensity])
@@ -58,12 +58,12 @@ export function CreativeHero() {
         </div>
 
         {/* Main profile picture container */}
-        <div 
+        <div
           className="relative z-10 group cursor-pointer select-none"
           onClick={handleClick}
         >
           {/* Outer glow ring - intensity based on clicks */}
-          <div 
+          <div
             className="absolute -inset-8 rounded-full bg-gradient-to-r from-phthalo-500/30 to-phthalo-700/30 blur-xl animate-pulse transition-all duration-300 group-hover:from-phthalo-400/60 group-hover:to-phthalo-600/60 group-hover:-inset-12 group-hover:blur-2xl"
             style={{
               filter: `blur(${Math.max(12, 12 + glowIntensity * 4)}px)`,
@@ -74,7 +74,7 @@ export function CreativeHero() {
 
           {/* Additional intense glow layers for spam clicking */}
           {glowIntensity > 3 && (
-            <div 
+            <div
               className="absolute -inset-16 rounded-full bg-gradient-to-r from-phthalo-300/40 to-phthalo-500/40 blur-3xl"
               style={{
                 opacity: (glowIntensity - 3) * 0.15,
@@ -84,7 +84,7 @@ export function CreativeHero() {
           )}
 
           {glowIntensity > 6 && (
-            <div 
+            <div
               className="absolute -inset-24 rounded-full bg-gradient-to-r from-phthalo-200/30 to-phthalo-400/30 blur-[4rem]"
               style={{
                 opacity: (glowIntensity - 6) * 0.1,
@@ -96,7 +96,7 @@ export function CreativeHero() {
           {/* Rotating border ring */}
           <div
             className="absolute -inset-4 rounded-full bg-gradient-to-r from-phthalo-500 via-phthalo-600 to-phthalo-700 animate-spin transition-all duration-300"
-            style={{ 
+            style={{
               animationDuration: "10s",
               boxShadow: glowIntensity > 0 ? `0 0 ${20 + glowIntensity * 10}px rgba(51, 155, 94, ${0.5 + glowIntensity * 0.1})` : 'none'
             }}
@@ -105,7 +105,7 @@ export function CreativeHero() {
           </div>
 
           {/* Profile picture */}
-          <div 
+          <div
             className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-phthalo-500/50 shadow-2xl transition-all duration-300"
             style={{
               borderColor: `rgba(51, 155, 94, ${0.5 + glowIntensity * 0.1})`,
@@ -124,7 +124,7 @@ export function CreativeHero() {
 
           {/* Status indicator - moved outside the image */}
           <div className="absolute bottom-0 right-0 flex items-center gap-2 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1">
-            <div 
+            <div
               className="w-2 h-2 bg-green-500 rounded-full animate-pulse"
               style={{
                 boxShadow: glowIntensity > 0 ? `0 0 ${5 + glowIntensity * 2}px #10b981` : 'none'
@@ -136,7 +136,7 @@ export function CreativeHero() {
           {/* Floating code symbols */}
           <div
             className="absolute -top-8 -left-8 text-phthalo-400 text-2xl font-mono animate-bounce transition-all duration-300"
-            style={{ 
+            style={{
               animationDelay: "0.5s",
               textShadow: glowIntensity > 0 ? `0 0 ${5 + glowIntensity * 3}px currentColor` : 'none'
             }}
@@ -145,7 +145,7 @@ export function CreativeHero() {
           </div>
           <div
             className="absolute -top-4 -right-12 text-phthalo-500 text-xl font-mono animate-pulse transition-all duration-300"
-            style={{ 
+            style={{
               animationDelay: "1s",
               textShadow: glowIntensity > 0 ? `0 0 ${5 + glowIntensity * 3}px currentColor` : 'none'
             }}
@@ -154,7 +154,7 @@ export function CreativeHero() {
           </div>
           <div
             className="absolute -bottom-6 -left-10 text-phthalo-600 text-lg font-mono animate-bounce transition-all duration-300"
-            style={{ 
+            style={{
               animationDelay: "1.5s",
               textShadow: glowIntensity > 0 ? `0 0 ${5 + glowIntensity * 3}px currentColor` : 'none'
             }}
@@ -163,7 +163,7 @@ export function CreativeHero() {
           </div>
           <div
             className="absolute -bottom-8 -right-8 text-phthalo-400 text-xl font-mono animate-pulse transition-all duration-300"
-            style={{ 
+            style={{
               animationDelay: "2s",
               textShadow: glowIntensity > 0 ? `0 0 ${5 + glowIntensity * 3}px currentColor` : 'none'
             }}

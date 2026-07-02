@@ -79,17 +79,17 @@ export default function Portfolio() {
               <Link href="/resume">
                 <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
                   <span className="relative z-10 flex items-center">
-                    View Resume <Download className="ml-2 h-4 w-4" />
+                    View Resume
                   </span>
                   <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 </Button>
               </Link>
               <Link href="#contact">
-                <Button
-                  variant="outline"
-                  className="border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500 bg-transparent"
-                >
-                  Contact Me
+                <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
+                  <span className="relative z-10 flex items-center">
+                    Contact Me
+                  </span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 </Button>
               </Link>
             </div>
@@ -116,7 +116,7 @@ export default function Portfolio() {
                   <span className="sr-only">LinkedIn</span>
                 </Button>
               </Link>
-              <Link href="mailto:malik86526.68@gmail.com">
+              <Link href="mailto:malik786526.68@gmail.com">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -160,7 +160,7 @@ export default function Portfolio() {
                 <Link href="/resume">
                   <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
                     <span className="relative z-10 flex items-center">
-                      View Resume <Download className="ml-2 h-4 w-4" />
+                      View Resume
                     </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   </Button>
@@ -195,7 +195,7 @@ export default function Portfolio() {
                     <span className="sr-only">LinkedIn</span>
                   </Button>
                 </Link>
-                <Link href="mailto:malik86526.68@gmail.com">
+                <Link href="mailto:malik786526.68@gmail.com">
                   <Button
                     variant="ghost"
                     size="icon"
@@ -269,7 +269,7 @@ export default function Portfolio() {
 
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium break-all">malik86526.68@gmail.com</div>
+                    <div className="font-medium break-all">malik786526.68@gmail.com</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Location</div>
@@ -366,25 +366,80 @@ export default function Portfolio() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
             <ProjectCard
-              title="first-reppo"
-              description="An introductory HTML template project on GitHub — a practical starting point for learning page structure, styling basics, and how to publish code with version control."
-              tags={["HTML", "GitHub", "Git", "Learning"]}
-              image={PROJECT_IMG_FIRST_REPO}
-              repoUrl="https://github.com/Muazzam-Ali-786/first-reppo"
+              title="Cybervol – Cybersecurity Platform"
+              description="Designed and developed the entire frontend and custom administrative dashboard for a dynamic B2B cybersecurity consulting website. Engineered a secure CMS on a dedicated subdomain to manage dynamic eBooks and blogs."
+              tags={["Frontend", "CMS", "Admin Panel", "React", "Tailwind CSS"]}
+              image="/img/cybervol.png"
+              demoUrl="https://www.cybervol.com"
             />
             <ProjectCard
-              title="reppo-4"
-              description="A small HTML practice repository focused on layout, components, and iterating on front-end fundamentals. Useful for experimenting with markup and deployment basics."
-              tags={["HTML", "GitHub Pages", "Web"]}
-              image={PROJECT_IMG_WEB}
-              repoUrl="https://github.com/Muazzam-Ali-786/reppo-4"
+              title="Medium Clone Blog"
+              description="A polished blog experience with a modern reading layout, hybrid content flow, and smooth UI interactions."
+              tags={["Next.js", "Tailwind CSS", "Responsive UI"]}
+              image="/img/medium-clone.png"
+              demoUrl="https://medium-clone-blog-ivory.vercel.app"
+              repoUrl="https://github.com/Muazzam-Ali-786/medium-clone-blog"
             />
             <ProjectCard
-              title="Personal portfolio (this site)"
-              description="This Next.js portfolio site — sections for about, skills, projects, experience, and contact, with a polished dark UI. You can fork or extend it as your own landing page."
-              tags={["Next.js", "React", "TypeScript", "Tailwind CSS"]}
-              image={PROJECT_IMG_NEXT}
-              repoUrl="https://github.com/Muazzam-Ali-786"
+              title="Multi-Step Signup Form"
+              description="A dynamic signup experience with multi-step validation and a clean, user-friendly flow."
+              tags={["React", "Form UX", "Frontend"]}
+              image="/img/multi-signup.png"
+              demoUrl="https://multi-signup-form.vercel.app"
+              repoUrl="https://github.com/Muazzam-Ali-786/multi-signup-form"
+            />
+            <ProjectCard
+              title="Headless E-Commerce Site"
+              description="A modern storefront concept built around flexible product data and a fast, minimal shopping experience."
+              tags={["Next.js", "E-commerce", "UI Design"]}
+              image="/img/ecommerce.png"
+              demoUrl="https://handless-e-comerce-site.vercel.app"
+              repoUrl="https://github.com/Muazzam-Ali-786/handless-e-comerce-site"
+            />
+            <ProjectCard
+              title="Time App"
+              description="A focused productivity app that helps users track time with a simple and engaging interface."
+              tags={["JavaScript", "Productivity", "Frontend"]}
+              image="/img/time-app.png"
+              demoUrl="https://time-app-chi.vercel.app"
+              repoUrl="https://github.com/Muazzam-Ali-786/time-app"
+            />
+            <ProjectCard
+              title="Diary App"
+              description="A personal journaling app with a calm interface for writing entries and organizing daily thoughts."
+              tags={["Next.js", "UX", "Personal App"]}
+              image="/img/diary-app.png"
+              demoUrl="https://diary-app-zeta-teal.vercel.app"
+              repoUrl="https://github.com/Muazzam-Ali-786/diary-app"
+            />
+            <ProjectCard
+              title="Shoe Store"
+              description="A sleek e-commerce frontend for a shoe brand with product listings, filtering, and a modern storefront UI."
+              tags={["Next.js", "E-commerce", "Tailwind CSS"]}
+              image="/img/shoe-store.png"
+              demoUrl="https://shoe-store-beta-eight.vercel.app"
+            />
+            <ProjectCard
+              title="Quiz Master"
+              description="An interactive quiz application with varied categories, real-time scoring, and a modern, engaging interface."
+              tags={["React", "Quiz App", "Frontend"]}
+              image="/img/quiz-master.png"
+              demoUrl="https://my-app-malik-muazzams-projects.vercel.app"
+              repoUrl="https://github.com/Muazzam-Ali-786/my-app"
+            />
+            <ProjectCard
+              title="Expense Tracker"
+              description="A personal finance and expense tracking app to monitor daily spending with clean charts and simple data entry."
+              tags={["JavaScript", "Finance", "Frontend"]}
+              image="/img/extense-tracker.png"
+              demoUrl="https://exptense-tracker.vercel.app"
+            />
+            <ProjectCard
+              title="Zync – Private Chat App"
+              description="A real-time private chat application with a modern messaging interface, room-based conversations, and smooth UX."
+              tags={["React", "Real-time", "Chat"]}
+              image="/img/chat-app.png"
+              demoUrl="https://zync-private-chat-app.vercel.app"
             />
           </div>
         </div>
@@ -427,10 +482,10 @@ export default function Portfolio() {
                   <div className="min-w-0">
                     <div className="text-sm text-zinc-500">Email</div>
                     <a
-                      href="mailto:malik86526.68@gmail.com"
+                      href="mailto:malik786526.68@gmail.com"
                       className="font-medium text-phthalo-400 hover:underline break-all"
                     >
-                      malik86526.68@gmail.com
+                      malik786526.68@gmail.com
                     </a>
                   </div>
                 </div>
@@ -507,7 +562,7 @@ export default function Portfolio() {
                 <span className="sr-only">LinkedIn</span>
               </Button>
             </Link>
-            <Link href="mailto:malik86526.68@gmail.com">
+            <Link href="mailto:malik786526.68@gmail.com">
               <Button
                 variant="ghost"
                 size="icon"

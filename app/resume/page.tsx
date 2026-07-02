@@ -22,9 +22,12 @@ export default function ResumePage() {
         <div className="container relative z-10 max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-12">
             <Link href="/">
-              <Button variant="ghost" className="text-zinc-400 hover:text-white">
-                <ArrowLeft className="h-5 w-5 mr-2" />
-                Back to Home
+              <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
+                <span className="relative z-10 flex items-center text-white">
+                  <ArrowLeft className="h-5 w-5 mr-2 transition-transform group-hover:-translate-x-1" />
+                  Back to Home
+                </span>
+                <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
               </Button>
             </Link>
           </div>

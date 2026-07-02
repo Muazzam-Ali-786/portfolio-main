@@ -97,7 +97,7 @@ export function ECGProjectCard({ title, description, tags, image, repoUrl }: ECG
                     <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
                       <h4 className="text-lg font-semibold mb-2 text-phthalo-400">📧 Contact & Support</h4>
                       <p className="text-zinc-300">
-                        <strong className="text-white">App Support:</strong> malik86526.68@gmail.com
+                        <strong className="text-white">App Support:</strong> malik786526.68@gmail.com
                       </p>
                       <p className="text-zinc-400 text-sm mt-1">
                         For questions about ECG Arrhythmia Detector, please contact me directly.

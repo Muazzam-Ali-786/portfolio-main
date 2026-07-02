@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
 
     const emailUser = process.env.EMAIL_USER
     const emailPass = process.env.EMAIL_PASS
-    const to = process.env.CONTACT_TO_EMAIL ?? "malik86526.68@gmail.com"
+    const to = process.env.CONTACT_TO_EMAIL ?? "malik786526.68@gmail.com"
 
     if (!emailUser || !emailPass) {
       console.warn("[contact] EMAIL_USER / EMAIL_PASS not set — message saved to DB only.")

@@ -1,11 +1,16 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
+import { PageLoader } from '@/components/page-loader'
 
 export const metadata: Metadata = {
   title: 'Malik Muazzam Ali - Software Developer',
   description:
     'Portfolio of Malik Muazzam Ali — software developer focused on modern web technologies, clean interfaces, and continuous learning.',
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
@@ -16,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <PageLoader />
         {children}
           <Toaster 
             position="top-right"
