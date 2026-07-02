@@ -11,6 +11,7 @@ import { MouseFollower } from "@/components/mouse-follower"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { SectionHeading } from "@/components/section-heading"
 import { GlassmorphicCard } from "@/components/glassmorphic-card"
+import { ContactForm } from "@/components/contact-form"
 import { Marquee } from "@/components/magicui/marquee"
 
 const ABOUT_STOCK_IMG =
@@ -471,58 +472,63 @@ export default function Portfolio() {
         <div className="container relative z-10">
           <SectionHeading title="Get In Touch" subtitle="Reach me here" />
 
-          <div className="max-w-xl mx-auto mt-16">
-            <GlassmorphicCard>
-              <h3 className="text-2xl font-bold mb-6">Contact</h3>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
-                    <Mail className="h-5 w-5 text-phthalo-400" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16">
+            <div className="flex flex-col justify-center h-full">
+              <GlassmorphicCard>
+                <h3 className="text-2xl font-bold mb-6">Contact Info</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+                      <Mail className="h-5 w-5 text-phthalo-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm text-zinc-500">Email</div>
+                      <a
+                        href="mailto:malik786526.68@gmail.com"
+                        className="font-medium text-phthalo-400 hover:underline break-all"
+                      >
+                        malik786526.68@gmail.com
+                      </a>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <div className="text-sm text-zinc-500">Email</div>
-                    <a
-                      href="mailto:malik786526.68@gmail.com"
-                      className="font-medium text-phthalo-400 hover:underline break-all"
-                    >
-                      malik786526.68@gmail.com
-                    </a>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+                      <Linkedin className="h-5 w-5 text-phthalo-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm text-zinc-500">LinkedIn</div>
+                      <a
+                        href="https://www.linkedin.com/in/malik-muazzam-ali-30b44a318/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-phthalo-400 hover:underline break-all"
+                      >
+                        linkedin.com/in/malik-muazzam-ali-30b44a318
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+                      <Github className="h-5 w-5 text-phthalo-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm text-zinc-500">GitHub</div>
+                      <a
+                        href="https://github.com/Muazzam-Ali-786"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-phthalo-400 hover:underline break-all"
+                      >
+                        github.com/Muazzam-Ali-786
+                      </a>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
-                    <Linkedin className="h-5 w-5 text-phthalo-400" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm text-zinc-500">LinkedIn</div>
-                    <a
-                      href="https://www.linkedin.com/in/malik-muazzam-ali-30b44a318/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-medium text-phthalo-400 hover:underline break-all"
-                    >
-                      linkedin.com/in/malik-muazzam-ali-30b44a318
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
-                    <Github className="h-5 w-5 text-phthalo-400" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm text-zinc-500">GitHub</div>
-                    <a
-                      href="https://github.com/Muazzam-Ali-786"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-medium text-phthalo-400 hover:underline break-all"
-                    >
-                      github.com/Muazzam-Ali-786
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </GlassmorphicCard>
+              </GlassmorphicCard>
+            </div>
+            <div>
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>
