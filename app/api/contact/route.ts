@@ -28,11 +28,17 @@ export async function POST(request: NextRequest) {
       message: String(message).trim(),
     }
 
-    const coll = await getContactMessagesCollection()
-    await coll.insertOne({
-      ...safe,
-      createdAt: new Date(),
-    })
+    try {
+      const coll = await getContactMessagesCollection()
+      await coll.insertOne({
+        ...safe,
+        createdAt: new Date(),
+      })
+      console.log("[contact] Saved to MongoDB")
+    } catch (dbErr) {
+      console.error("[contact] MongoDB insertion failed:", dbErr)
+      // Continue anyway to send the email
+    }
 
     const emailUser = process.env.EMAIL_USER
     const emailPass = process.env.EMAIL_PASS
@@ -53,22 +59,32 @@ export async function POST(request: NextRequest) {
     })
 
     const mailOptions = {
-      from: emailUser,
+      from: `"Portfolio Contact" <${emailUser}>`,
       to,
+      replyTo: `"${safe.name}" <${safe.email}>`,
       subject: `Portfolio Contact: ${safe.subject}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333;">New Contact Form Submission</h2>
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Name:</strong> ${escapeHtml(safe.name)}</p>
-            <p><strong>Email:</strong> ${escapeHtml(safe.email)}</p>
-            <p><strong>Subject:</strong> ${escapeHtml(safe.subject)}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #111; color: #fff; border-radius: 12px; overflow: hidden;">
+          <div style="background: linear-gradient(135deg, #1e5132, #26804a); padding: 24px;">
+            <h2 style="margin: 0; color: #fff; font-size: 22px;">📬 New Message from Portfolio</h2>
           </div>
-          <div style="background: #fff; padding: 20px; border-left: 4px solid #007bff; margin: 20px 0;">
-            <h3>Message:</h3>
-            <p style="line-height: 1.6; white-space: pre-wrap;">${escapeHtml(safe.message)}</p>
+          <div style="padding: 24px;">
+            <div style="background: #1a1a1a; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #26804a;">
+              <p style="margin: 6px 0; color: #aaa; font-size: 13px;">From</p>
+              <p style="margin: 0; color: #fff; font-size: 16px; font-weight: bold;">${escapeHtml(safe.name)} &lt;${escapeHtml(safe.email)}&gt;</p>
+            </div>
+            <div style="background: #1a1a1a; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #26804a;">
+              <p style="margin: 6px 0; color: #aaa; font-size: 13px;">Subject</p>
+              <p style="margin: 0; color: #fff; font-size: 16px;">${escapeHtml(safe.subject)}</p>
+            </div>
+            <div style="background: #1a1a1a; padding: 16px; border-radius: 8px; border-left: 4px solid #26804a;">
+              <p style="margin: 6px 0; color: #aaa; font-size: 13px;">Message</p>
+              <p style="margin: 0; color: #e0e0e0; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(safe.message)}</p>
+            </div>
+            <p style="margin-top: 20px; color: #555; font-size: 12px; text-align: center;">
+              💡 Hit <strong>Reply</strong> to respond directly to ${escapeHtml(safe.name)}
+            </p>
           </div>
-          <p style="color: #666; font-size: 12px;">Saved to MongoDB collection <code>portfolio_contacts</code>.</p>
         </div>
       `,
     }
