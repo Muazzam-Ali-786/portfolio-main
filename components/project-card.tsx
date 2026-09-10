@@ -46,7 +46,7 @@ export function ProjectCard({ title, description, tags, image, imageFit = "cover
                 src={image || "/placeholder.svg"}
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover scale-110 blur-xl opacity-70"
+                className="bg-black scale-110 w-full h-full object-cover"
               />
             )}
             <img
