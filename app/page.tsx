@@ -493,6 +493,7 @@ export default function Portfolio() {
               description="A real-time private chat application with a modern messaging interface, room-based conversations, and smooth UX."
               tags={["React", "Real-time", "Chat"]}
               image="/img/chat-app-image.png"
+              imageFit="contain"
               demoUrl="https://vexo-private-chat-app.vercel.app"
             />
           </div>

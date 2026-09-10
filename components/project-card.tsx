@@ -13,13 +13,14 @@ interface ProjectCardProps {
   description: string
   tags: string[]
   image: string
+  imageFit?: "cover" | "contain"
   demoUrl?: string
   repoUrl?: string
   studioUrl?: string
   studioName?: string
 }
 
-export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl, studioUrl, studioName }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, image, imageFit = "cover", demoUrl, repoUrl, studioUrl, studioName }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -43,7 +44,7 @@ export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl,
             <img
               src={image || "/placeholder.svg"}
               alt={title}
-              className={`w-full h-full object-cover transition-transform duration-700 ${isHovered ? "scale-105" : "scale-100"}`}
+              className={`w-full h-full object-${imageFit} ${imageFit === "contain" ? "p-4" : ""} transition-transform duration-700 ${isHovered ? "scale-105" : "scale-100"}`}
             />
           </div>
 
