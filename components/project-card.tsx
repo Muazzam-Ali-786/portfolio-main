@@ -41,10 +41,18 @@ export function ProjectCard({ title, description, tags, image, imageFit = "cover
         <div className="relative h-full flex flex-col">
           <div className="relative overflow-hidden h-56">
             <div className="absolute inset-0 bg-gradient-to-b from-phthalo-500/20 to-phthalo-700/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+            {imageFit === "contain" && (
+              <img
+                src={image || "/placeholder.svg"}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover scale-110 blur-xl opacity-70"
+              />
+            )}
             <img
               src={image || "/placeholder.svg"}
               alt={title}
-              className={`w-full h-full object-${imageFit} ${imageFit === "contain" ? "p-4" : ""} transition-transform duration-700 ${isHovered ? "scale-105" : "scale-100"}`}
+              className={`relative w-full h-full ${imageFit === "contain" ? "object-contain" : "object-cover"} transition-transform duration-700 ${isHovered ? "scale-105" : "scale-100"}`}
             />
           </div>
 
