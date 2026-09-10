@@ -367,7 +367,6 @@ export default function Portfolio() {
                 <SkillBadge name="Tailwind CSS" />
                 <SkillBadge name="Git" />
                 <SkillBadge name="GitHub" />
-                <SkillBadge name="Python" />
                 <SkillBadge name="REST APIs" />
                 <SkillBadge name="Responsive UI" />
               </Marquee>
@@ -396,7 +395,6 @@ export default function Portfolio() {
                 <SkillBadge name="Tailwind CSS" />
                 <SkillBadge name="Git" />
                 <SkillBadge name="GitHub" />
-                <SkillBadge name="Python" />
                 <SkillBadge name="REST APIs" />
                 <SkillBadge name="Responsive UI" />
               </Marquee>
