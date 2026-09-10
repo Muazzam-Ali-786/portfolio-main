@@ -133,7 +133,7 @@ export default function ResumePage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h4 className="font-semibold text-xl mb-2">Matric</h4>
-                <p className="text-zinc-400 text-sm">Private</p>
+                <p className="text-zinc-400 text-sm">BISE Faisalabad</p>
                 <p className="text-zinc-400 text-sm mt-1">2024 - 2025</p>
               </div>
               <div>
