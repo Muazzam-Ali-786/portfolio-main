@@ -1,28 +1,28 @@
-import Link from "next/link"
-import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react"
+import Link from "next/link";
+import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { ProjectCard } from "@/components/project-card"
-import { SkillBadge } from "@/components/skill-badge"
-import { Timeline } from "@/components/timeline"
-import { CreativeHero } from "@/components/creative-hero"
-import { FloatingNav } from "@/components/floating-nav"
-import { MouseFollower } from "@/components/mouse-follower"
-import { ScrollProgress } from "@/components/scroll-progress"
-import { SectionHeading } from "@/components/section-heading"
-import { GlassmorphicCard } from "@/components/glassmorphic-card"
-import { ContactForm } from "@/components/contact-form"
-import { Marquee } from "@/components/magicui/marquee"
+import { Button } from "@/components/ui/button";
+import { ProjectCard } from "@/components/project-card";
+import { SkillBadge } from "@/components/skill-badge";
+import { Timeline } from "@/components/timeline";
+import { CreativeHero } from "@/components/creative-hero";
+import { FloatingNav } from "@/components/floating-nav";
+import { MouseFollower } from "@/components/mouse-follower";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { SectionHeading } from "@/components/section-heading";
+import { GlassmorphicCard } from "@/components/glassmorphic-card";
+import { ContactForm } from "@/components/contact-form";
+import { Marquee } from "@/components/magicui/marquee";
 
 const ABOUT_STOCK_IMG =
-  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80&auto=format&fit=crop"
+  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80&auto=format&fit=crop";
 /** first-reppo — HTML / starter template (distinct image from other projects). */
 const PROJECT_IMG_FIRST_REPO =
-  "https://images.unsplash.com/photo-1621839673705-6617adf9e890?w=1200&q=80&auto=format&fit=crop"
+  "https://images.unsplash.com/photo-1621839673705-6617adf9e890?w=1200&q=80&auto=format&fit=crop";
 const PROJECT_IMG_WEB =
-  "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80&auto=format&fit=crop"
+  "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80&auto=format&fit=crop";
 const PROJECT_IMG_NEXT =
-  "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80&auto=format&fit=crop"
+  "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80&auto=format&fit=crop";
 export default function Portfolio() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white overflow-hidden">
@@ -48,31 +48,36 @@ export default function Portfolio() {
                 Malik Muazzam Ali
               </span>
             </h1>
-            
+
             {/* 2. Profile image */}
             <div className="flex justify-center">
               <CreativeHero />
             </div>
-            
+
             {/* 3. Software engineer badge */}
             <div className="flex justify-center">
               <div className="relative px-3 py-1 text-xs font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-                <span className="relative z-10">Software Developer | Web Technologies | Continuous Learner</span>
+                <span className="relative z-10">
+                  Software Developer | Web Technologies | Continuous Learner
+                </span>
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-phthalo-500/20 to-phthalo-700/20 animate-pulse"></span>
               </div>
             </div>
 
             {/* 4. Description */}
             <p className="text-lg text-zinc-400 max-w-[600px]">
-              I build responsive web experiences with modern tools, care about clean code and UI, and keep leveling up through projects and real-world practice.
+              I build responsive web experiences with modern tools, care about
+              clean code and UI, and keep leveling up through projects and
+              real-world practice.
             </p>
-            
+
             {/* 5. Buttons */}
-<div className="flex flex-wrap gap-4 pt-4 justify-center">
+            <div className="flex flex-wrap gap-4 pt-4 justify-center">
               <Link href="#projects">
                 <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
                   <span className="relative z-10 flex items-center">
-                    View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    View Projects{" "}
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                   <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 </Button>
@@ -94,10 +99,14 @@ export default function Portfolio() {
                 </Button>
               </Link>
             </div>
-            
+
             {/* 6. Social icons */}
             <div className="flex gap-4 justify-center">
-              <Link href="https://github.com/Muazzam-Ali-786" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://github.com/Muazzam-Ali-786"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Button
                   variant="ghost"
                   size="icon"
@@ -107,7 +116,11 @@ export default function Portfolio() {
                   <span className="sr-only">GitHub</span>
                 </Button>
               </Link>
-              <Link href="https://www.linkedin.com/in/malik-muazzam-ali-30b44a318/" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://www.linkedin.com/in/malik-muazzam-ali-30b44a318/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Button
                   variant="ghost"
                   size="icon"
@@ -135,7 +148,9 @@ export default function Portfolio() {
             <div className="space-y-6 text-left">
               <div className="inline-block">
                 <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4">
-                  <span className="relative z-10">Software Developer | Web Technologies | Continuous Learner</span>
+                  <span className="relative z-10">
+                    Software Developer | Web Technologies | Continuous Learner
+                  </span>
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-phthalo-500/20 to-phthalo-700/20 animate-pulse"></span>
                 </div>
               </div>
@@ -147,13 +162,16 @@ export default function Portfolio() {
                 </span>
               </h1>
               <p className="text-xl text-zinc-400 max-w-[600px]">
-                I build responsive web experiences with modern tools, care about clean code and UI, and keep leveling up through projects and real-world practice.
+                I build responsive web experiences with modern tools, care about
+                clean code and UI, and keep leveling up through projects and
+                real-world practice.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <Link href="#projects">
                   <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0">
                     <span className="relative z-10 flex items-center">
-                      View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      View Projects{" "}
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   </Button>
@@ -176,7 +194,11 @@ export default function Portfolio() {
                 </Link>
               </div>
               <div className="flex gap-4 pt-4">
-                <Link href="https://github.com/Muazzam-Ali-786" target="_blank" rel="noopener noreferrer">
+                <Link
+                  href="https://github.com/Muazzam-Ali-786"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Button
                     variant="ghost"
                     size="icon"
@@ -186,7 +208,11 @@ export default function Portfolio() {
                     <span className="sr-only">GitHub</span>
                   </Button>
                 </Link>
-                <Link href="https://www.linkedin.com/in/malik-muazzam-ali-30b44a318/" target="_blank" rel="noopener noreferrer">
+                <Link
+                  href="https://www.linkedin.com/in/malik-muazzam-ali-30b44a318/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Button
                     variant="ghost"
                     size="icon"
@@ -229,7 +255,10 @@ export default function Portfolio() {
         </div>
 
         <div className="container relative z-10">
-          <SectionHeading title="About Me" subtitle="Who I am and what I build" />
+          <SectionHeading
+            title="About Me"
+            subtitle="Who I am and what I build"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
             <div className="relative order-2 md:order-1">
@@ -244,7 +273,9 @@ export default function Portfolio() {
                 <div className="absolute bottom-0 left-0 w-full p-6">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                    <span className="text-sm font-medium">Available for work</span>
+                    <span className="text-sm font-medium">
+                      Available for work
+                    </span>
                   </div>
                 </div>
               </div>
@@ -253,32 +284,45 @@ export default function Portfolio() {
             <div className="space-y-6 order-1 md:order-2">
               <GlassmorphicCard>
                 <p className="text-lg text-zinc-300">
-                  I'm Malik Muazzam Ali, a software developer focused on the modern web. I enjoy turning ideas into fast, responsive interfaces and learning something new with every project.
+                  I'm Malik Muazzam Ali, a software developer focused on the
+                  modern web. I enjoy turning ideas into fast, responsive
+                  interfaces and learning something new with every project.
                 </p>
                 <p className="text-lg text-zinc-300 mt-4">
-                  I work with HTML, CSS, JavaScript, and frameworks like React and Next.js, and I use Git/GitHub to ship and iterate. My aim is straightforward: write maintainable code, keep the UX polished, and grow through hands-on projects.
+                  I work with HTML, CSS, JavaScript, and frameworks like React
+                  and Next.js, and I use Git/GitHub to ship and iterate. My aim
+                  is straightforward: write maintainable code, keep the UX
+                  polished, and grow through hands-on projects.
                 </p>
-<p className="text-lg text-zinc-300 mt-4">
-                  I am open to internships, junior roles, and collaboration opportunities where I can contribute, learn from a team, and keep building real products.
+                <p className="text-lg text-zinc-300 mt-4">
+                  I am open to internships, junior roles, and collaboration
+                  opportunities where I can contribute, learn from a team, and
+                  keep building real products.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Name</div>
                     <div className="font-medium">Malik Muazzam Ali</div>
-                  </div> 
+                  </div>
 
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium break-all">malik786526.68@gmail.com</div>
+                    <div className="font-medium break-all">
+                      malik786526.68@gmail.com
+                    </div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Location</div>
-                    <div className="font-medium">Faisalabad, Punjab, Pakistan</div>
+                    <div className="font-medium">
+                      Faisalabad, Punjab, Pakistan
+                    </div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Availability</div>
-                    <div className="font-medium text-green-500">Open to opportunities</div>
+                    <div className="font-medium text-green-500">
+                      Open to opportunities
+                    </div>
                   </div>
                 </div>
 
@@ -303,7 +347,10 @@ export default function Portfolio() {
         </div>
 
         <div className="container relative z-10">
-          <SectionHeading title="My Skills" subtitle="Technologies I work with" />
+          <SectionHeading
+            title="My Skills"
+            subtitle="Technologies I work with"
+          />
 
           {/* Desktop: Two horizontal rows */}
           <div className="hidden md:block mt-16">
@@ -340,7 +387,12 @@ export default function Portfolio() {
                 <SkillBadge name="Next.js" level={85} />
                 <SkillBadge name="TypeScript" level={80} />
               </Marquee>
-              <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
+              <Marquee
+                reverse
+                pauseOnHover
+                vertical
+                className="[--duration:20s]"
+              >
                 <SkillBadge name="Tailwind CSS" level={90} />
                 <SkillBadge name="Git" level={90} />
                 <SkillBadge name="GitHub" level={90} />
@@ -363,7 +415,10 @@ export default function Portfolio() {
         </div>
 
         <div className="container relative z-10">
-          <SectionHeading title="Featured Projects" subtitle="Some of my recent work" />
+          <SectionHeading
+            title="Featured Projects"
+            subtitle="Some of my recent work"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
             <ProjectCard
@@ -436,11 +491,11 @@ export default function Portfolio() {
               demoUrl="https://exptense-tracker.vercel.app"
             />
             <ProjectCard
-              title="Zync – Private Chat App"
+              title="Vexo – Private Chat App"
               description="A real-time private chat application with a modern messaging interface, room-based conversations, and smooth UX."
               tags={["React", "Real-time", "Chat"]}
-              image="/img/chat-app.png"
-              demoUrl="https://zync-private-chat-app.vercel.app"
+              image="/img/chat-app-image.png"
+              demoUrl="https://vexo-private-chat-app.vercel.app"
             />
           </div>
         </div>
@@ -454,7 +509,10 @@ export default function Portfolio() {
         </div>
 
         <div className="container relative z-10">
-          <SectionHeading title="Work Experience" subtitle="My professional journey" />
+          <SectionHeading
+            title="Work Experience"
+            subtitle="My professional journey"
+          />
 
           <div className="mt-16">
             <Timeline />
@@ -544,11 +602,16 @@ export default function Portfolio() {
               <span className="text-white"> Muazzam Ali</span>
             </Link>
             <p className="text-sm text-zinc-500 mt-2">
-              © {new Date().getFullYear()} Malik Muazzam Ali. All rights reserved.
+              © {new Date().getFullYear()} Malik Muazzam Ali. All rights
+              reserved.
             </p>
           </div>
           <div className="flex gap-4">
-            <Link href="https://github.com/Muazzam-Ali-786" target="_blank" rel="noopener noreferrer">
+            <Link
+              href="https://github.com/Muazzam-Ali-786"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button
                 variant="ghost"
                 size="icon"
@@ -558,7 +621,11 @@ export default function Portfolio() {
                 <span className="sr-only">GitHub</span>
               </Button>
             </Link>
-            <Link href="https://www.linkedin.com/in/malik-muazzam-ali-30b44a318/" target="_blank" rel="noopener noreferrer">
+            <Link
+              href="https://www.linkedin.com/in/malik-muazzam-ali-30b44a318/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button
                 variant="ghost"
                 size="icon"
@@ -582,5 +649,5 @@ export default function Portfolio() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
