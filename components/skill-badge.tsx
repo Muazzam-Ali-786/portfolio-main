@@ -1,13 +1,42 @@
 "use client"
 
 import { motion } from "framer-motion"
+import {
+  Atom,
+  Braces,
+  Code2,
+  FileCode2,
+  Github,
+  GitBranch,
+  Globe2,
+  Layout,
+  Network,
+  Triangle,
+  Wind,
+} from "lucide-react"
 
 interface SkillBadgeProps {
   name: string
-  level: number
 }
 
-export function SkillBadge({ name, level }: SkillBadgeProps) {
+const skillIcons = {
+  HTML: FileCode2,
+  CSS: Code2,
+  JavaScript: Braces,
+  React: Atom,
+  "Next.js": Triangle,
+  TypeScript: Code2,
+  "Tailwind CSS": Wind,
+  Git: GitBranch,
+  GitHub: Github,
+  Python: Braces,
+  "REST APIs": Network,
+  "Responsive UI": Layout,
+} as const
+
+export function SkillBadge({ name }: SkillBadgeProps) {
+  const SkillIcon = skillIcons[name as keyof typeof skillIcons] ?? Globe2
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -20,19 +49,12 @@ export function SkillBadge({ name, level }: SkillBadgeProps) {
         <div className="absolute -inset-1 bg-gradient-to-r from-phthalo-500/10 to-phthalo-700/10 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
 
         <div className="relative">
-          <div className="text-center mb-4 font-medium text-lg">{name}</div>
-
-          <div className="relative h-2.5 w-full bg-zinc-700 rounded-full overflow-hidden">
-            <motion.div
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-phthalo-600 to-phthalo-800 rounded-full"
-              initial={{ width: 0 }}
-              whileInView={{ width: `${level}%` }}
-              transition={{ duration: 1, delay: 0.2 }}
-              viewport={{ once: true }}
-            />
-          </div>
-
-          <div className="mt-2 text-right text-sm text-zinc-400">{level}%</div>
+          <SkillIcon
+            aria-hidden="true"
+            className="mx-auto mb-4 h-10 w-10 text-phthalo-400"
+            strokeWidth={1.5}
+          />
+          <div className="text-center font-medium text-lg">{name}</div>
         </div>
       </div>
     </motion.div>

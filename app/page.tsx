@@ -356,20 +356,20 @@ export default function Portfolio() {
           <div className="hidden md:block mt-16">
             <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
               <Marquee pauseOnHover className="[--duration:20s]">
-                <SkillBadge name="HTML" level={95} />
-                <SkillBadge name="CSS" level={95} />
-                <SkillBadge name="JavaScript" level={90} />
-                <SkillBadge name="React" level={85} />
-                <SkillBadge name="Next.js" level={85} />
-                <SkillBadge name="TypeScript" level={80} />
+                <SkillBadge name="HTML" />
+                <SkillBadge name="CSS" />
+                <SkillBadge name="JavaScript" />
+                <SkillBadge name="React" />
+                <SkillBadge name="Next.js" />
+                <SkillBadge name="TypeScript" />
               </Marquee>
               <Marquee reverse pauseOnHover className="[--duration:20s]">
-                <SkillBadge name="Tailwind CSS" level={90} />
-                <SkillBadge name="Git" level={90} />
-                <SkillBadge name="GitHub" level={90} />
-                <SkillBadge name="Python" level={75} />
-                <SkillBadge name="REST APIs" level={75} />
-                <SkillBadge name="Responsive UI" level={90} />
+                <SkillBadge name="Tailwind CSS" />
+                <SkillBadge name="Git" />
+                <SkillBadge name="GitHub" />
+                <SkillBadge name="Python" />
+                <SkillBadge name="REST APIs" />
+                <SkillBadge name="Responsive UI" />
               </Marquee>
               <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-zinc-900"></div>
               <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-zinc-900"></div>
@@ -380,12 +380,12 @@ export default function Portfolio() {
           <div className="md:hidden mt-16">
             <div className="relative flex h-[500px] w-full flex-row items-center justify-center overflow-hidden">
               <Marquee pauseOnHover vertical className="[--duration:20s]">
-                <SkillBadge name="HTML" level={95} />
-                <SkillBadge name="CSS" level={95} />
-                <SkillBadge name="JavaScript" level={90} />
-                <SkillBadge name="React" level={85} />
-                <SkillBadge name="Next.js" level={85} />
-                <SkillBadge name="TypeScript" level={80} />
+                <SkillBadge name="HTML" />
+                <SkillBadge name="CSS" />
+                <SkillBadge name="JavaScript" />
+                <SkillBadge name="React" />
+                <SkillBadge name="Next.js" />
+                <SkillBadge name="TypeScript" />
               </Marquee>
               <Marquee
                 reverse
@@ -393,12 +393,12 @@ export default function Portfolio() {
                 vertical
                 className="[--duration:20s]"
               >
-                <SkillBadge name="Tailwind CSS" level={90} />
-                <SkillBadge name="Git" level={90} />
-                <SkillBadge name="GitHub" level={90} />
-                <SkillBadge name="Python" level={75} />
-                <SkillBadge name="REST APIs" level={75} />
-                <SkillBadge name="Responsive UI" level={90} />
+                <SkillBadge name="Tailwind CSS" />
+                <SkillBadge name="Git" />
+                <SkillBadge name="GitHub" />
+                <SkillBadge name="Python" />
+                <SkillBadge name="REST APIs" />
+                <SkillBadge name="Responsive UI" />
               </Marquee>
               <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-zinc-900"></div>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-zinc-900"></div>
