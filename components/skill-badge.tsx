@@ -1,60 +1,88 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { ComponentType } from "react"
 import {
-  Atom,
-  Braces,
-  Code2,
-  FileCode2,
-  Github,
-  GitBranch,
-  Globe2,
-  Layout,
-  Network,
-  Triangle,
-  Wind,
-} from "lucide-react"
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiGit,
+  SiGithub,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiRedux,
+  SiPostman,
+  SiStripe,
+  SiSocketdotio,
+  SiRedis,
+} from "react-icons/si"
+import { Layout } from "lucide-react"
 
 interface SkillBadgeProps {
   name: string
 }
 
-const skillIcons = {
-  HTML: FileCode2,
-  CSS: Code2,
-  JavaScript: Braces,
-  React: Atom,
-  "Next.js": Triangle,
-  TypeScript: Code2,
-  "Tailwind CSS": Wind,
-  Git: GitBranch,
-  GitHub: Github,
-  Python: Braces,
-  "REST APIs": Network,
-  "Responsive UI": Layout,
-} as const
+interface SkillConfig {
+  icon: ComponentType<{ className?: string; style?: React.CSSProperties }>
+  color: string
+}
+
+const skillConfigs: Record<string, SkillConfig> = {
+  HTML: { icon: SiHtml5, color: "#E34F26" },
+  HTML5: { icon: SiHtml5, color: "#E34F26" },
+  CSS: { icon: SiCss, color: "#1572B6" },
+  CSS3: { icon: SiCss, color: "#1572B6" },
+  JavaScript: { icon: SiJavascript, color: "#F7DF1E" },
+  React: { icon: SiReact, color: "#61DAFB" },
+  "Next.js": { icon: SiNextdotjs, color: "#FFFFFF" },
+  TypeScript: { icon: SiTypescript, color: "#3178C6" },
+  "Tailwind CSS": { icon: SiTailwindcss, color: "#06B6D4" },
+  "Node.js": { icon: SiNodedotjs, color: "#5FA04E" },
+  "Express.js": { icon: SiExpress, color: "#FFFFFF" },
+  MongoDB: { icon: SiMongodb, color: "#47A248" },
+  Redux: { icon: SiRedux, color: "#764ABC" },
+  "Socket.io": { icon: SiSocketdotio, color: "#FFFFFF" },
+  Redis: { icon: SiRedis, color: "#DC382D" },
+  Stripe: { icon: SiStripe, color: "#635BFF" },
+  Git: { icon: SiGit, color: "#F05032" },
+  GitHub: { icon: SiGithub, color: "#FFFFFF" },
+  "REST APIs": { icon: SiPostman, color: "#FF6C37" },
+  "Responsive UI": { icon: Layout, color: "#10B981" },
+}
 
 export function SkillBadge({ name }: SkillBadgeProps) {
-  const SkillIcon = skillIcons[name as keyof typeof skillIcons] ?? Globe2
+  const config = skillConfigs[name] || { icon: Layout, color: "#10B981" }
+  const SkillIcon = config.icon
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
       viewport={{ once: true }}
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -6 }}
+      className="w-[calc(50%-0.5rem)] sm:w-40"
+      style={{ "--brand": config.color } as React.CSSProperties}
     >
-      <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 p-6 h-full transition-all duration-300 hover:border-phthalo-500/50">
-        <div className="absolute -inset-1 bg-gradient-to-r from-phthalo-500/10 to-phthalo-700/10 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+      <div className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-md transition-all duration-300 hover:border-[color:var(--brand)] hover:shadow-[0_0_40px_-12px_var(--brand)]">
+        {/* Brand-colored glow that fades in on hover */}
+        <div className="pointer-events-none absolute -bottom-10 left-1/2 h-24 w-24 -translate-x-1/2 rounded-full bg-[color:var(--brand)] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-30" />
 
-        <div className="relative">
-          <SkillIcon
-            aria-hidden="true"
-            className="mx-auto mb-4 h-10 w-10 text-phthalo-400"
-            strokeWidth={1.5}
-          />
-          <div className="text-center font-medium text-lg">{name}</div>
+        <div className="relative flex flex-col items-center justify-center gap-3">
+          <div className="grid h-14 w-14 place-items-center rounded-xl transition-transform duration-300 group-hover:scale-110">
+            <SkillIcon
+              className="h-7 w-7 drop-shadow-[0_0_8px_var(--brand)]"
+              style={{ color: config.color }}
+            />
+          </div>
+          <div className="text-center font-mono text-xs tracking-wide text-stone-300 transition-colors group-hover:text-white">
+            {name}
+          </div>
         </div>
       </div>
     </motion.div>

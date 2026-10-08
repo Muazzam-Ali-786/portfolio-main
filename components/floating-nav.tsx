@@ -1,121 +1,167 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { AnimatePresence, motion } from "framer-motion"
+import { ArrowUpRight, Menu, X } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { useMobile } from "@/hooks/use-mobile"
+import { PulseDot } from "@/components/pulse-dot"
+import { cn } from "@/lib/utils"
+
+const navItems = [
+  { name: "About", id: "about" },
+  { name: "Skills", id: "skills" },
+  { name: "Projects", id: "projects" },
+  { name: "Experience", id: "experience" },
+  { name: "Contact", id: "contact" },
+]
+
+// Only wait for the page loader on the very first mount, not on client navigations
+let hasEnteredOnce = false
 
 export function FloatingNav() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [enterDelay] = useState(() => (hasEnteredOnce ? 0 : 1.6))
+  const pathname = usePathname()
+  const onHome = pathname === "/"
   const [isOpen, setIsOpen] = useState(false)
-  const isMobile = useMobile()
+  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState<string | null>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
+    hasEnteredOnce = true
+  }, [])
 
-    window.addEventListener("scroll", handleScroll)
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 40)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Contact", href: "#contact" },
-  ]
-
-  const handleNavClick = () => {
-    if (isMobile) {
-      setIsOpen(false)
+  // Highlight the section currently in view
+  useEffect(() => {
+    if (!onHome) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id)
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    )
+    for (const id of ["home", ...navItems.map((item) => item.id)]) {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
     }
-  }
+    return () => observer.disconnect()
+  }, [onHome])
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isOpen])
+
+  const hrefFor = (id: string) => (onHome ? `#${id}` : `/#${id}`)
 
   return (
     <>
-      <motion.div
-        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-        initial={{ y: -100 }}
-        animate={{ y: isVisible ? 0 : -100 }}
-        transition={{ duration: 0.3 }}
+      <motion.header
+        className="fixed inset-x-0 top-4 z-50 flex justify-center px-4"
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: enterDelay, ease: "easeOut" }}
       >
-        <div className="relative px-4 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-phthalo-500/20 to-phthalo-700/20 rounded-full blur opacity-50"></div>
+        <nav
+          className={cn(
+            "flex w-full max-w-5xl items-center justify-between gap-4 rounded-full border px-3 py-2 backdrop-blur-xl transition-all duration-500",
+            scrolled || isOpen
+              ? "border-white/10 bg-void/70 shadow-[0_10px_40px_-10px_rgba(200,245,38,0.25)]"
+              : "border-transparent bg-transparent",
+          )}
+        >
+          <Link href="/" className="flex items-center gap-3 pl-3" aria-label="Muazam.dev, home">
+            <PulseDot />
+            <span className="text-lg font-bold tracking-tight text-white">
+              Muazam<span className="text-acid-300">.</span>
+              <span className="font-mono text-base font-medium text-stone-400">dev</span>
+            </span>
+          </Link>
 
-          {isMobile ? (
-            <div className="relative flex items-center justify-between">
-              <Link href="/" className="font-bold text-lg">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600">
-                  Malik
-                </span>
-                <span className="text-white">Muazzam</span>
-              </Link>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-zinc-400 hover:text-white hover:bg-zinc-700/50"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </Button>
-            </div>
-          ) : (
-            <div className="relative flex items-center gap-1">
-              <Link href="/" className="font-bold text-lg mr-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600">
-                  Malik
-                </span>
-                <span className="text-white">Muazzam</span>
-              </Link>
-              {navItems.map((item) => (
+          <ul className="hidden items-center gap-1 md:flex">
+            {navItems.map((item) => (
+              <li key={item.id}>
                 <Link
-                  key={item.name}
-                  href={item.href}
-                  className="px-3 py-1 text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-                  onClick={handleNavClick}
+                  href={hrefFor(item.id)}
+                  className={cn(
+                    "relative isolate block rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    active === item.id ? "text-white" : "text-stone-400 hover:text-white",
+                  )}
                 >
+                  {active === item.id && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-0 -z-10 rounded-full border border-acid-400/30 bg-acid-400/10 shadow-[0_0_20px_-4px_rgba(200,245,38,0.6)]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
                   {item.name}
                 </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      </motion.div>
-
-      {/* Mobile menu */}
-      {isMobile && (
-        <motion.div
-          className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-md ${isOpen ? "block" : "hidden"}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isOpen ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="flex flex-col items-center justify-center h-full">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="px-8 py-4 text-2xl font-medium text-white hover:text-purple-400 transition-colors"
-                onClick={handleNavClick}
-              >
-                {item.name}
-              </Link>
+              </li>
             ))}
+          </ul>
 
-
-
+          <div className="flex items-center gap-2">
+            <Link href="/resume" className="btn-holo !hidden !h-9 !px-4 !text-xs sm:!inline-flex">
+              Resume <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+            <button
+              type="button"
+              className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-stone-200 md:hidden"
+              onClick={() => setIsOpen((open) => !open)}
+              aria-expanded={isOpen}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+            >
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
-        </motion.div>
-      )}
+        </nav>
+      </motion.header>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 flex flex-col justify-center bg-void/95 px-8 backdrop-blur-xl md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="bg-grid absolute inset-0" aria-hidden="true" />
+            <ul className="relative space-y-2">
+              {[...navItems, { name: "Resume", id: "resume" }].map((item, i) => (
+                <motion.li
+                  key={item.id}
+                  initial={{ opacity: 0, x: -24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 * i }}
+                >
+                  <Link
+                    href={item.id === "resume" ? "/resume" : hrefFor(item.id)}
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-baseline gap-4 py-2 text-4xl font-bold tracking-tight text-white transition-colors hover:text-acid-300"
+                  >
+                    <span className="font-mono text-xs text-acid-400/70">0{i + 1}</span>
+                    {item.name}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

@@ -2,6 +2,15 @@
 
 import React, { useEffect, useState } from "react"
 
+import { PulseDot } from "@/components/pulse-dot"
+
+const BOOT_LINES = [
+  "initializing portfolio.sys",
+  "loading modules [react, next, tailwind]",
+  "calibrating holo-display",
+  "access granted",
+]
+
 export function PageLoader() {
   const [progress, setProgress] = useState(0)
   const [visible, setVisible] = useState(true)
@@ -13,31 +22,24 @@ export function PageLoader() {
     if (hasRun.current) return
     hasRun.current = true
 
-    // Simulate loading progress
-    const intervals = [
-      { target: 15, delay: 100 },
-      { target: 45, delay: 300 },
-      { target: 70, delay: 600 },
-      { target: 90, delay: 900 },
-      { target: 100, delay: 1200 },
+    const timers: ReturnType<typeof setTimeout>[] = []
+    const steps = [
+      { target: 18, delay: 100 },
+      { target: 42, delay: 400 },
+      { target: 71, delay: 750 },
+      { target: 100, delay: 1100 },
     ]
 
-    const timers: ReturnType<typeof setTimeout>[] = []
-
-    intervals.forEach(({ target, delay }) => {
-      const t = setTimeout(() => {
-        setProgress(target)
-      }, delay)
-      timers.push(t)
+    steps.forEach(({ target, delay }) => {
+      timers.push(setTimeout(() => setProgress(target), delay))
     })
 
-    // Complete after page is ready
-    const complete = setTimeout(() => {
-      setFadeOut(true)
-      setTimeout(() => setVisible(false), 800)
-    }, 1500)
-
-    timers.push(complete)
+    timers.push(
+      setTimeout(() => {
+        setFadeOut(true)
+        timers.push(setTimeout(() => setVisible(false), 700))
+      }, 1500),
+    )
 
     return () => {
       timers.forEach((t) => clearTimeout(t))
@@ -46,60 +48,48 @@ export function PageLoader() {
 
   if (!visible) return null
 
+  const linesShown = Math.ceil((progress / 100) * BOOT_LINES.length)
+
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070709] transition-opacity duration-700 ${
-        fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
+      role="status"
+      aria-label="Loading"
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#0b0a09] transition-all duration-700 ${
+        fadeOut ? "pointer-events-none opacity-0 blur-sm" : "opacity-100"
       }`}
     >
-      <div className="flex flex-col items-center justify-center">
-        
-        {/* Animated Rings & Logo */}
-        <div className="relative flex items-center justify-center w-24 h-24 mb-12">
-          {/* Outer Dark Green Arc */}
-          <div className="absolute inset-[-10px] rounded-full border-[3px] border-transparent border-t-[#26804a] border-r-[#26804a] animate-[spin_2s_linear_infinite]" style={{ boxShadow: '0 0 15px rgba(38, 128, 74, 0.2)' }}></div>
-          
-          {/* Inner Light Green Arc */}
-          <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-b-[#56b67d] border-l-[#56b67d] animate-[spin_1.5s_linear_infinite_reverse]" style={{ boxShadow: '0 0 15px rgba(86, 182, 125, 0.2)' }}></div>
-          
-          {/* Center Logo */}
-          <span 
-            className="text-4xl font-black tracking-widest select-none z-10"
-            style={{
-              background: "linear-gradient(135deg, #56b67d, #1e5132)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 0 8px rgba(86,182,125,0.5))"
-            }}
-          >
-            M
-          </span>
+      <div className="bg-grid absolute inset-0" aria-hidden="true" />
+
+      <div className="relative w-[min(88vw,360px)]">
+        <div className="mb-10 flex justify-center">
+          <div className="flex items-center gap-4">
+            <PulseDot className="h-5 w-5" />
+            <span className="text-3xl font-bold tracking-tight text-white">
+              Muazam<span className="text-acid-300">.</span>
+              <span className="font-mono text-2xl font-medium text-stone-400">dev</span>
+            </span>
+          </div>
         </div>
 
-        {/* Progress Bar Container */}
-        <div className="w-56 h-1 bg-[#1a1a24] rounded-full overflow-hidden mb-6">
-          <div 
-            className="h-full rounded-full transition-all duration-300 ease-out"
-            style={{ 
-              width: `${progress}%`,
-              background: 'linear-gradient(90deg, #1e5132, #56b67d)',
-              boxShadow: '0 0 10px rgba(86, 182, 125, 0.8)'
-            }}
-          ></div>
+        <div className="space-y-1.5 font-mono text-xs text-stone-400">
+          {BOOT_LINES.slice(0, linesShown).map((line, i) => (
+            <div key={line} className="flex gap-2">
+              <span className="text-acid-400">&gt;</span>
+              <span className={i === BOOT_LINES.length - 1 ? "text-acid-300" : undefined}>{line}</span>
+              <span className="ml-auto text-acid-400/80">[ok]</span>
+            </div>
+          ))}
         </div>
 
-        {/* Loading Text */}
-        <p className="text-zinc-500 text-sm font-mono tracking-widest mb-10">
-          Loading portfolio...
-        </p>
-
-        {/* Bouncing Dots */}
-        <div className="flex gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#56b67d] animate-bounce" style={{ animationDelay: '0ms' }}></div>
-          <div className="w-1.5 h-1.5 rounded-full bg-[#56b67d] animate-bounce" style={{ animationDelay: '150ms' }}></div>
-          <div className="w-1.5 h-1.5 rounded-full bg-[#56b67d] animate-bounce" style={{ animationDelay: '300ms' }}></div>
+        <div className="mt-6 flex items-center gap-3">
+          <div className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/10">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-acid-400 via-acid-400 to-ember-500 shadow-[0_0_12px_#c8f526] transition-all duration-300 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <span className="w-10 text-right font-mono text-xs tabular-nums text-acid-300">{progress}%</span>
         </div>
-
       </div>
     </div>
   )

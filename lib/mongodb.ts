@@ -21,8 +21,13 @@ function getClientPromise(): Promise<MongoClient> {
     )
   }
   if (!global._mongoClientPromise) {
-    const client = new MongoClient(uri)
-    global._mongoClientPromise = client.connect()
+    // Fail fast so a dead database never blocks the request (serverless time limits)
+    const client = new MongoClient(uri, { serverSelectionTimeoutMS: 5000, connectTimeoutMS: 5000 })
+    global._mongoClientPromise = client.connect().catch((err) => {
+      // Don't cache a failed connection; retry on the next request
+      global._mongoClientPromise = undefined
+      throw err
+    })
   }
   return global._mongoClientPromise
 }

@@ -4,111 +4,85 @@ import { NextRequest, NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 
 import { getContactMessagesCollection } from "@/lib/mongodb"
+import { renderContactEmail } from "./email-template"
 
-function escapeHtml(s: string) {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+export const runtime = "nodejs"
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+async function saveToDb(doc: { name: string; email: string; subject: string; message: string; createdAt: Date }) {
+  const coll = await getContactMessagesCollection()
+  await coll.insertOne(doc)
+}
+
+async function sendEmail(data: { name: string; email: string; subject: string; message: string; createdAt: Date }) {
+  const emailUser = process.env.EMAIL_USER?.trim()
+  const emailPass = process.env.EMAIL_PASS?.replace(/\s+/g, "")
+  const to = process.env.CONTACT_TO_EMAIL?.trim() || emailUser
+
+  if (!emailUser || !emailPass || !to) {
+    throw new Error("EMAIL_USER / EMAIL_PASS are not set")
+  }
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: { user: emailUser, pass: emailPass },
+  })
+
+  const { html, text } = renderContactEmail({ ...data, receivedAt: data.createdAt })
+
+  await transporter.sendMail({
+    from: { name: `${data.name} via Portfolio`, address: emailUser },
+    to,
+    replyTo: { name: data.name, address: data.email },
+    subject: `Portfolio: ${data.subject}`,
+    text,
+    html,
+  })
 }
 
 export async function POST(request: NextRequest) {
+  let body: Record<string, unknown>
   try {
-    const { name, email, subject, message } = await request.json()
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ message: "Invalid request body" }, { status: 400 })
+  }
 
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json({ message: "All fields are required" }, { status: 400 })
-    }
+  const data = {
+    name: String(body.name ?? "").trim().slice(0, 120),
+    email: String(body.email ?? "").trim().slice(0, 200),
+    subject: String(body.subject ?? "").trim().slice(0, 200),
+    message: String(body.message ?? "").trim().slice(0, 5000),
+    createdAt: new Date(),
+  }
 
-    const safe = {
-      name: String(name).trim(),
-      email: String(email).trim(),
-      subject: String(subject).trim(),
-      message: String(message).trim(),
-    }
+  if (!data.name || !data.email || !data.subject || !data.message) {
+    return NextResponse.json({ message: "All fields are required" }, { status: 400 })
+  }
+  if (!EMAIL_RE.test(data.email)) {
+    return NextResponse.json({ message: "Please enter a valid email address" }, { status: 400 })
+  }
 
-    try {
-      const coll = await getContactMessagesCollection()
-      await coll.insertOne({
-        ...safe,
-        createdAt: new Date(),
-      })
-      console.log("[contact] Saved to MongoDB")
-    } catch (dbErr) {
-      console.error("[contact] MongoDB insertion failed:", dbErr)
-      // Continue anyway to send the email
-    }
+  // Run both in parallel so a slow/dead database can never block the email
+  const [mail, db] = await Promise.allSettled([sendEmail(data), saveToDb(data)])
 
-    const emailUser = process.env.EMAIL_USER
-    const emailPass = process.env.EMAIL_PASS
-    const to = process.env.CONTACT_TO_EMAIL ?? "malik786526.68@gmail.com"
+  if (mail.status === "rejected") console.error("[contact] Email failed:", mail.reason)
+  if (db.status === "rejected") console.error("[contact] MongoDB save failed:", db.reason)
 
-    if (!emailUser || !emailPass) {
-      console.warn("[contact] EMAIL_USER / EMAIL_PASS not set — message saved to DB only.")
-      return NextResponse.json({
-        message: "Message saved. Configure EMAIL_USER and EMAIL_PASS to receive Gmail notifications.",
-        saved: true,
-        emailSent: false,
-      })
-    }
+  const emailSent = mail.status === "fulfilled"
+  const saved = db.status === "fulfilled"
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: { user: emailUser, pass: emailPass },
-    })
-
-    const mailOptions = {
-      from: `"Portfolio Contact" <${emailUser}>`,
-      to,
-      replyTo: `"${safe.name}" <${safe.email}>`,
-      subject: `Portfolio Contact: ${safe.subject}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #111; color: #fff; border-radius: 12px; overflow: hidden;">
-          <div style="background: linear-gradient(135deg, #1e5132, #26804a); padding: 24px;">
-            <h2 style="margin: 0; color: #fff; font-size: 22px;">📬 New Message from Portfolio</h2>
-          </div>
-          <div style="padding: 24px;">
-            <div style="background: #1a1a1a; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #26804a;">
-              <p style="margin: 6px 0; color: #aaa; font-size: 13px;">From</p>
-              <p style="margin: 0; color: #fff; font-size: 16px; font-weight: bold;">${escapeHtml(safe.name)} &lt;${escapeHtml(safe.email)}&gt;</p>
-            </div>
-            <div style="background: #1a1a1a; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #26804a;">
-              <p style="margin: 6px 0; color: #aaa; font-size: 13px;">Subject</p>
-              <p style="margin: 0; color: #fff; font-size: 16px;">${escapeHtml(safe.subject)}</p>
-            </div>
-            <div style="background: #1a1a1a; padding: 16px; border-radius: 8px; border-left: 4px solid #26804a;">
-              <p style="margin: 6px 0; color: #aaa; font-size: 13px;">Message</p>
-              <p style="margin: 0; color: #e0e0e0; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(safe.message)}</p>
-            </div>
-            <p style="margin-top: 20px; color: #555; font-size: 12px; text-align: center;">
-              💡 Hit <strong>Reply</strong> to respond directly to ${escapeHtml(safe.name)}
-            </p>
-          </div>
-        </div>
-      `,
-    }
-
-    try {
-      await transporter.sendMail(mailOptions)
-      return NextResponse.json({
-        message: "Message saved and email sent successfully",
-        saved: true,
-        emailSent: true,
-      })
-    } catch (mailErr) {
-      console.error("[contact] Email failed (data already in MongoDB):", mailErr)
-      return NextResponse.json({
-        message: "Message saved. Email could not be sent — check Gmail App Password and EMAIL_USER.",
-        saved: true,
-        emailSent: false,
-      })
-    }
-  } catch (error) {
-    console.error("[contact]", error)
+  if (!emailSent && !saved) {
     return NextResponse.json(
-      { message: error instanceof Error ? error.message : "Failed to process contact form" },
-      { status: 500 }
+      { message: "Message could not be delivered. Please email me directly.", emailSent, saved },
+      { status: 502 },
     )
   }
+
+  return NextResponse.json({
+    message: emailSent ? "Message sent successfully" : "Message saved, email notification failed",
+    emailSent,
+    saved,
+  })
 }

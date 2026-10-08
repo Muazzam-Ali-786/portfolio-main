@@ -1,12 +1,16 @@
 import type { Metadata } from 'next'
+import { Bricolage_Grotesque, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import { PageLoader } from '@/components/page-loader'
 
+const display = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-display', display: 'swap' })
+const mono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-mono', display: 'swap' })
+
 export const metadata: Metadata = {
-  title: 'Malik Muazzam Ali - Software Developer',
+  title: 'Muazam.dev — Malik Muazzam Ali, Web Developer',
   description:
-    'Portfolio of Malik Muazzam Ali — software developer focused on modern web technologies, clean interfaces, and continuous learning.',
+    'Portfolio of Malik Muazzam Ali — web developer focused on modern web technologies, clean interfaces, and continuous learning.',
   icons: {
     icon: '/favicon.png',
     apple: '/favicon.png',
@@ -19,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={`${display.variable} ${mono.variable}`}>
+      <body className="font-sans antialiased">
         <PageLoader />
         {children}
           <Toaster 

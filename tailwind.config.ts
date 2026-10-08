@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import defaultTheme from "tailwindcss/defaultTheme"
 
 const config = {
   darkMode: ["class"],
@@ -19,7 +20,38 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-display)", ...defaultTheme.fontFamily.sans],
+        mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
+      },
       colors: {
+        void: "#0b0a09",
+        acid: {
+          50: "#f9ffe0",
+          100: "#f1ffb8",
+          200: "#e6ff85",
+          300: "#d9ff4d",
+          400: "#c8f526",
+          500: "#a8d40f",
+          600: "#82a608",
+          700: "#617c0b",
+          800: "#4d610f",
+          900: "#3f5012",
+          950: "#212d04",
+        },
+        ember: {
+          50: "#fff3ee",
+          100: "#ffe3d6",
+          200: "#ffc3ab",
+          300: "#ff9b75",
+          400: "#ff6a3d",
+          500: "#fb4c1a",
+          600: "#e2340f",
+          700: "#bb2710",
+          800: "#952315",
+          900: "#792014",
+          950: "#410c06",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -81,10 +113,41 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        scan: {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(300%)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        // lub-dub: two beats, then rest
+        heartbeat: {
+          "0%, 100%": { transform: "scale(1)" },
+          "14%": { transform: "scale(1.35)" },
+          "28%": { transform: "scale(1)" },
+          "42%": { transform: "scale(1.22)" },
+          "70%": { transform: "scale(1)" },
+        },
+        "heartbeat-ring": {
+          "0%": { transform: "scale(1)", opacity: "0.7" },
+          "70%, 100%": { transform: "scale(2.6)", opacity: "0" },
+        },
+        "scroll-line": {
+          "0%": { transform: "scaleY(0)", transformOrigin: "top" },
+          "50%": { transform: "scaleY(1)", transformOrigin: "top" },
+          "51%": { transform: "scaleY(1)", transformOrigin: "bottom" },
+          "100%": { transform: "scaleY(0)", transformOrigin: "bottom" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        scan: "scan 3.5s linear infinite",
+        float: "float 6s ease-in-out infinite",
+        "scroll-line": "scroll-line 2s ease-in-out infinite",
+        heartbeat: "heartbeat 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite",
+        "heartbeat-ring": "heartbeat-ring 1.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite",
       },
     },
   },

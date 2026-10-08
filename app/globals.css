@@ -198,7 +198,7 @@ html, body {
 /* Ensure full coverage on small screens */
 body {
   min-height: 100vh;
-  background: #18181b; /* zinc-900 fallback */
+  background: #0b0a09;
 }
 
 /* Constrain blobs on very small screens */
@@ -297,4 +297,275 @@ input[type="password"]::placeholder {
 html, body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+/* ================================================================
+   Futuristic / holographic design layer
+   ================================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+::selection {
+  background: rgba(200,245,38, 0.3);
+  color: #fff;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes holo-shift {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes grid-move {
+  to {
+    background-position: 0 64px;
+  }
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Animated lime -> ember gradient text */
+.text-holo {
+  background-image: linear-gradient(90deg, #d9ff4d 0%, #c8f526 33%, #ff6a3d 66%, #d9ff4d 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: holo-shift 6s linear infinite;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.14);
+}
+
+.caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: #c8f526;
+  box-shadow: 0 0 10px #c8f526;
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+/* Background grid, faded toward the edges */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+}
+
+/* Synthwave perspective floor for the hero */
+.hero-floor {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -10%;
+  height: 60%;
+  background-image:
+    linear-gradient(rgba(200,245,38, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,106,61, 0.22) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(500px) rotateX(68deg);
+  transform-origin: center top;
+  animation: grid-move 2.4s linear infinite;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 45%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 45%, #000 70%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Film-grain noise overlay */
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+/* Rotating conic ring (avatar, featured borders) */
+.holo-ring {
+  background: conic-gradient(from var(--angle), #d9ff4d, #c8f526, #ff6a3d, #ffb547, #d9ff4d);
+  animation: spin-angle 6s linear infinite;
+}
+
+/* Animated gradient border using the mask trick */
+.holo-border {
+  position: relative;
+}
+.holo-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--angle), transparent 0deg, #c8f526 60deg, #ff6a3d 120deg, transparent 180deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-angle 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Spotlight card: border that lights up around the cursor */
+.spotlight-border {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(200,245,38, 0.9),
+    rgba(255,106,61, 0.5) 30%,
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.spotlight-card:hover > .spotlight-border {
+  opacity: 1;
+}
+
+/* HUD corner brackets */
+.hud-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(200,245,38, 0.7);
+  pointer-events: none;
+}
+
+/* Buttons */
+.btn-holo,
+.btn-glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.875rem;
+  padding: 0 1.4rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+.btn-holo {
+  color: #0b0a09;
+  background: linear-gradient(90deg, #d9ff4d, #c8f526, #ff6a3d);
+  background-size: 200% auto;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 8px 30px -8px rgba(200,245,38, 0.6);
+}
+.btn-holo:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2) inset, 0 14px 40px -8px rgba(200,245,38, 0.8);
+}
+.btn-glass {
+  color: #e4e4e7;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+}
+.btn-glass:hover {
+  color: #fff;
+  border-color: rgba(200,245,38, 0.6);
+  box-shadow: 0 0 24px -6px rgba(200,245,38, 0.6);
+  transform: translateY(-2px);
+}
+.btn-holo:focus-visible,
+.btn-glass:focus-visible {
+  outline: 2px solid #c8f526;
+  outline-offset: 3px;
+}
+
+/* Glitch effect on hover (used for section titles) */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.glitch:hover::before {
+  opacity: 0.8;
+  color: #c8f526;
+  transform: translate(-2px, -1px);
+  clip-path: inset(10% 0 55% 0);
+  animation: glitch-a 0.6s steps(2) infinite;
+}
+.glitch:hover::after {
+  opacity: 0.8;
+  color: #ffb547;
+  transform: translate(2px, 1px);
+  clip-path: inset(60% 0 5% 0);
+  animation: glitch-b 0.5s steps(2) infinite;
+}
+@keyframes glitch-a {
+  0% { clip-path: inset(10% 0 55% 0); }
+  50% { clip-path: inset(40% 0 30% 0); }
+  100% { clip-path: inset(70% 0 5% 0); }
+}
+@keyframes glitch-b {
+  0% { clip-path: inset(60% 0 5% 0); }
+  50% { clip-path: inset(20% 0 50% 0); }
+  100% { clip-path: inset(5% 0 75% 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Outlined lime numerals for section indexes */
+.text-outline-acid {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200, 245, 38, 0.55);
+}
+
+body {
+  color: #f2efe8;
 }

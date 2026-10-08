@@ -7,9 +7,13 @@ import { motion } from "framer-motion"
 import { Send } from "lucide-react"
 import { toast } from "sonner"
 
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { SpotlightCard } from "@/components/spotlight-card"
+
+const labelClass = "font-mono text-[11px] uppercase tracking-widest text-stone-500"
+const fieldClass =
+  "border-white/10 bg-black/40 font-mono text-sm text-white placeholder:text-stone-600 focus-visible:border-acid-400/60 focus-visible:ring-2 focus-visible:ring-acid-400/20 focus-visible:ring-offset-0"
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -73,63 +77,42 @@ export function ContactForm() {
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
     >
-      <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 p-6 transition-all duration-300 hover:border-phthalo-500/50">
-        <div className="absolute -inset-1 bg-gradient-to-r from-phthalo-500/10 to-phthalo-700/10 rounded-xl blur opacity-25 hover:opacity-100 transition duration-1000 hover:duration-200"></div>
-
-        <div className="relative">
-          <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
-
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Input
-                name="name"
-                placeholder="Your Name"
-                required
-                className="bg-zinc-900/50 border-zinc-700 focus:border-phthalo-500 focus:ring-phthalo-500/20"
-              />
-            </div>
-            <div className="space-y-2">
-              <Input
-                name="email"
-                type="email"
-                placeholder="Your Email"
-                required
-                className="bg-zinc-900/50 border-zinc-700 focus:border-phthalo-500 focus:ring-phthalo-500/20"
-              />
-            </div>
-            <div className="space-y-2">
-              <Input
-                name="subject"
-                placeholder="Subject"
-                required
-                className="bg-zinc-900/50 border-zinc-700 focus:border-phthalo-500 focus:ring-phthalo-500/20"
-              />
-            </div>
-            <div className="space-y-2">
-              <Textarea
-                name="message"
-                placeholder="Your Message"
-                rows={5}
-                required
-                className="bg-zinc-900/50 border-zinc-700 focus:border-phthalo-500 focus:ring-phthalo-500/20"
-              />
-            </div>
-            <Button
-              type="submit"
-              className="w-full bg-gradient-to-r from-phthalo-600 to-phthalo-800 hover:from-phthalo-700 hover:to-phthalo-900 border-0"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>Sending...</>
-              ) : (
-                <>
-                  Send Message <Send className="ml-2 h-4 w-4" />
-                </>
-              )}
-            </Button>
-          </form>
+      <SpotlightCard corners className="p-6 md:p-8">
+        <div className="mb-6 flex items-center justify-between">
+          <h3 className="text-2xl font-bold tracking-tight text-white">Send a Message</h3>
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-acid-300/70">secure channel</span>
         </div>
-      </div>
+
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid gap-5 sm:grid-cols-2">
+            <label className="block space-y-2">
+              <span className={labelClass}>{"// name"}</span>
+              <Input name="name" placeholder="Your Name" required className={fieldClass} />
+            </label>
+            <label className="block space-y-2">
+              <span className={labelClass}>{"// email"}</span>
+              <Input name="email" type="email" placeholder="Your Email" required className={fieldClass} />
+            </label>
+          </div>
+          <label className="block space-y-2">
+            <span className={labelClass}>{"// subject"}</span>
+            <Input name="subject" placeholder="Subject" required className={fieldClass} />
+          </label>
+          <label className="block space-y-2">
+            <span className={labelClass}>{"// message"}</span>
+            <Textarea name="message" placeholder="Your Message" rows={5} required className={fieldClass} />
+          </label>
+          <button type="submit" className="btn-holo w-full disabled:opacity-60" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <>Transmitting...</>
+            ) : (
+              <>
+                Send Message <Send className="h-4 w-4" />
+              </>
+            )}
+          </button>
+        </form>
+      </SpotlightCard>
     </motion.div>
   )
 }
